@@ -1523,6 +1523,13 @@ CREATE OR REPLACE FUNCTION postgis_noop(geometry)
 	LANGUAGE 'c' IMMUTABLE STRICT _PARALLEL
 	COST 10;
 
+-- Availability: 2.5.0
+CREATE OR REPLACE FUNCTION postgis_geos_noop(geometry)
+	RETURNS geometry
+	AS 'MODULE_PATHNAME', 'GEOSnoop'
+	LANGUAGE 'c' IMMUTABLE STRICT _PARALLEL
+	COST 1;
+
 -- Availability: 2.3.0
 CREATE OR REPLACE FUNCTION ST_Normalize(geom geometry)
 	RETURNS geometry

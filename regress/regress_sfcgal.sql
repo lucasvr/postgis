@@ -30,6 +30,11 @@ SELECT 'ST_Orientation_2', ST_Orientation(ST_ForceRHR('POLYGON((0 0,0 1,1 1,1 0,
 SELECT 'ST_MinkowskiSum', ST_AsText(ST_MinkowskiSum('LINESTRING(0 0,4 0)','POLYGON((0 0,1 0,1 1,0 1,0 0))'));
 SELECT 'ST_StraightSkeleton', ST_AsText(ST_StraightSkeleton('POLYGON((1 1,2 1,2 2,1 2,1 1))'));
 
+-- Performance evaluation tests
+SELECT 'postgis_sfcgal_noop_1', ST_Z(postgis_sfcgal_noop(ST_AsText('POINT(1 2 3)')));
+SELECT 'postgis_sfcgal_noop_2', ST_NPoints(postgis_sfcgal_noop(ST_AsText('LINESTRINGZ(0 0 3, 1 1 3, 2 2 3, 3 3 3)')));
+SELECT 'postgis_sfcgal_noop_3', ST_SRID(postgis_sfcgal_noop(ST_AsEWKT('SRID=4326;POLYHEDRALSURFACEZ(((0 0 0, 0 1 0, 1 1 0, 0 0 0)), ((0 0 0, 0 1 0, 0 1 1, 0 0 0)))')));
+
 -- Backend switch tests
 SET postgis.backend = 'geos';
 SELECT 'intersection_geos', ST_astext(ST_intersection('LINESTRING(0 10, 0 -10)', 'LINESTRING(0 0, 1 1)'));

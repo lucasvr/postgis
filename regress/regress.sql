@@ -267,6 +267,10 @@ select '224', ST_Expand(null::box2d, 1, 1);
 select '225', ST_Expand('BOX(-2 3, -1 6'::BOX2D, 4, 2);
 select '226', ST_SRID(ST_Expand('SRID=4326;POINT (0 0)'::geometry, 1))=4326;
 
+select 'postgis_geos_noop_1', ST_Z(postgis_sfcgal_noop(ST_AsText('POINT(1 2 3)')));
+select 'postgis_geos_noop_2', ST_NPoints(postgis_sfcgal_noop(ST_AsText('LINESTRINGZ(0 0 3, 1 1 3, 2 2 3, 3 3 3)')));
+select 'postgis_geos_noop_3', ST_SRID(postgis_sfcgal_noop(ST_AsEWKT('SRID=4326;POLYHEDRALSURFACEZ(((0 0 0, 0 1 0, 1 1 0, 0 0 0)), ((0 0 0, 0 1 0, 0 1 1, 0 0 0)))')));
+
 -- Drop test table
 DROP table test;
 
